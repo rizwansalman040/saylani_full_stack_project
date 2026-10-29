@@ -1,19 +1,21 @@
-// /backend/server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./db');
 
-// Connect to Database
+// Import your new routes here
+const productRoutes = require('./routes/productRoutes');
+
 connectDB();
 
 const app = express();
 
-// Middleware to parse JSON and allow cross-origin requests from your frontend
 app.use(express.json());
 app.use(cors());
 
-// Basic test route
+// Mount the product routes to the /api/products URL path
+app.use('/api/products', productRoutes);
+
 app.get('/', (req, res) => {
     res.send('API is running live...');
 });
